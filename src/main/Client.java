@@ -5,17 +5,28 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import connection.Connection;
+import auth.Authentication;
 
 public class Client {
 
     public static void main(String[] args) throws IOException {
-        Connection connection = new Connection();
-	// write your code here
+        Authentication authentication;
         String serverHost = "localhost";
         int serverPort = 9999;
-        connection.startConnection(serverHost,serverPort);
-
+        try (
+                Socket echoSocket = new Socket ( serverHost, serverPort );
+                PrintWriter out =
+                        new PrintWriter ( echoSocket.getOutputStream (), true );
+                BufferedReader in =
+                        new BufferedReader (
+                                new InputStreamReader( echoSocket.getInputStream () ) );
+                BufferedReader stdIn =
+                        new BufferedReader (
+                                new InputStreamReader ( System.in ) )
+        ) {
+            authentication = new Authentication(stdIn, out, in);
+            authentication.startAuthentication();
+        }
     }
 
 
