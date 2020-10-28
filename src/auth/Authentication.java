@@ -8,17 +8,18 @@ public class Authentication {
     BufferedReader stdIn;
     PrintWriter out;
     BufferedReader in;
+
+    public Authentication(BufferedReader stdIn, PrintWriter out, BufferedReader in){
+        this.stdIn = stdIn;
+        this.out = out;
+        this.in = in;
+    }
     public void startAuthentication() throws IOException {
             sendUsername(stdIn,out);
             String question;
             while ((question = in.readLine()) != null) {
                 getAnswerFromUser(stdIn, question);
             }
-    }
-    public Authentication(BufferedReader stdIn, PrintWriter out, BufferedReader in){
-        this.stdIn = stdIn;
-        this.out = out;
-        this.in = in;
     }
     private void sendUsername(BufferedReader stdIn, PrintWriter out) {
         System.out.println("Please enter your username:");
@@ -31,7 +32,6 @@ public class Authentication {
             e.printStackTrace();
         }
     }
-
     private String getAnswerFromUser(BufferedReader stdIn, String question) {
         System.out.println(question + ":");
         String userInput;
