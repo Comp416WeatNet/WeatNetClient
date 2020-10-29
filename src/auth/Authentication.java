@@ -52,7 +52,8 @@ public class Authentication {
         String username;
         try {
             if((username = stdIn.readLine())!= null) {
-                out.println(new DataType(DataType.AUTH_PHASE, DataType.AUTH_REQUEST, username).getData());
+                DataType data = new DataType(DataType.AUTH_PHASE, DataType.AUTH_REQUEST, username);
+                out.println(data.getData());
                 out.flush();
             }
         } catch (IOException e) {
