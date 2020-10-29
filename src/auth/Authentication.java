@@ -18,7 +18,9 @@ public class Authentication {
             sendUsername(stdIn,out);
             String question;
             while ((question = in.readLine()) != null) {
-                getAnswerFromUser(stdIn, question);
+                String answer = getAnswerFromUser(stdIn, question);
+                out.println(answer);
+                out.flush();
             }
     }
     private void sendUsername(BufferedReader stdIn, PrintWriter out) {
@@ -27,6 +29,7 @@ public class Authentication {
         try {
             if((username = stdIn.readLine())!= null) {
                 out.println(username);
+                out.flush();
             }
         } catch (IOException e) {
             e.printStackTrace();
