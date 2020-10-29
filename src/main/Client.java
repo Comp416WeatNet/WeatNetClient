@@ -5,14 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import auth.Authentication;
+import controllers.AuthController;
 
 public class Client {
+    public static final String DEFAULT_SERVER_HOST = "localhost";
+    public static final int DEFAULT_SERVER_PORT = 9999;
 
-    public static void main(String[] args) throws IOException {
-        Authentication authentication;
-        String serverHost = "localhost";
-        int serverPort = 9999;
+    public Client(String serverHost, int serverPort){
+        AuthController authController;
         try (
                 Socket echoSocket = new Socket ( serverHost, serverPort );
                 PrintWriter out =
@@ -24,10 +24,11 @@ public class Client {
                         new BufferedReader (
                                 new InputStreamReader ( System.in ) )
         ) {
-            authentication = new Authentication(stdIn, out, in);
-            authentication.startAuthentication();
+            authController = AuthController.getAuthController(stdIn,out,in);
+            authController.startAuthentication();
+        } catch (IOException e){
+            e.printStackTrace();
         }
     }
-
 
 }
