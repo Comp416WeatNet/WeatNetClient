@@ -18,4 +18,8 @@ public class QueryingController {
             queryingController = new QueryingController(stdin, out, in);
         return queryingController;
     }
+
+    public void initQueryingMode() {
+        querying.initConnection();
+    }
 }

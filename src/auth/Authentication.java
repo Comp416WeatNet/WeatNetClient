@@ -24,19 +24,20 @@ public class Authentication {
             DataType resp;
             while ((question = in.readLine()) != null) {
                 resp = new DataType(question);
-                question = resp.getPayload();
-                if (resp.getType() == DataType.AUTH_FAIL){
-                    break; // authentication failed
-                } else if (resp.getType() == DataType.AUTH_SUCCESS) {
-                    Token connectionToken = new Token(resp);
-
-                    break;
+                if (resp.getPhase() == DataType.AUTH_PHASE) {
+                    if (resp.getType() == DataType.AUTH_FAIL) {
+                        break; // authentication failed
+                    } else if (resp.getType() == DataType.AUTH_SUCCESS) {
+                        Token connectionToken = new Token(resp);
+                        break;
+                    } else if (resp.getType() == DataType.AUTH_CHALLENGE) {
+                        question = resp.getPayload();
+                        answer = getAnswerFromUser(stdIn, question);
+                        out.println(new DataType(DataType.AUTH_PHASE, DataType.AUTH_REQUEST, answer).getData());
+                        out.flush();
+                    }
                 }
-                answer = getAnswerFromUser(stdIn, question);
-                out.println(new DataType(DataType.AUTH_PHASE, DataType.AUTH_REQUEST, answer).getData());
-                out.flush();
             }
-
     }
     private void sendUsername(BufferedReader stdIn, PrintWriter out) {
         System.out.println("Please enter your username:");
