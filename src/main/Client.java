@@ -14,17 +14,17 @@ public class Client {
     public Client(String serverHost, int serverPort){
         AuthController authController;
         try (
-                Socket echoSocket = new Socket ( serverHost, serverPort );
+                Socket s = new Socket ( serverHost, serverPort );
                 PrintWriter out =
-                        new PrintWriter ( echoSocket.getOutputStream (), true );
+                        new PrintWriter ( s.getOutputStream (), true );
                 BufferedReader in =
                         new BufferedReader (
-                                new InputStreamReader( echoSocket.getInputStream () ) );
+                                new InputStreamReader( s.getInputStream () ) );
                 BufferedReader stdIn =
                         new BufferedReader (
                                 new InputStreamReader ( System.in ) )
         ) {
-            authController = AuthController.getAuthController(stdIn,out,in);
+            authController = AuthController.getAuthController(stdIn,out,in,s);
             authController.startAuthentication();
         } catch (IOException e){
             e.printStackTrace();

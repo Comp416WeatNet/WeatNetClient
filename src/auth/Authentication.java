@@ -1,18 +1,21 @@
 package auth;
 
+import controllers.QueryingController;
 import data.DataType;
 import data.Token;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.Socket;
 
 public class Authentication {
     BufferedReader stdIn;
     PrintWriter out;
     BufferedReader in;
+    Socket s;
 
-    public Authentication(BufferedReader stdIn, PrintWriter out, BufferedReader in){
+    public Authentication(BufferedReader stdIn, PrintWriter out, BufferedReader in, Socket s){
         this.stdIn = stdIn;
         this.out = out;
         this.in = in;
@@ -26,9 +29,14 @@ public class Authentication {
                 resp = new DataType(question);
                 if (resp.getPhase() == DataType.AUTH_PHASE) {
                     if (resp.getType() == DataType.AUTH_FAIL) {
+                        out.close();
+                        in.close();
+                        stdIn.close();
+                        s.close();
                         break; // authentication failed
                     } else if (resp.getType() == DataType.AUTH_SUCCESS) {
                         Token connectionToken = new Token(resp);
+                        QueryingController.getQueryingController(stdIn, out, in, s).initQueryingMode();
                         break;
                     } else if (resp.getType() == DataType.AUTH_CHALLENGE) {
                         question = resp.getPayload();
