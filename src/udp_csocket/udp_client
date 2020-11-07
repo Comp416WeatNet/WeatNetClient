@@ -3,7 +3,7 @@ package udp_csocket;
 import java.io.*;
 import java.net.*;
 
-public class udp_server {
+public class udp_client {
 
 public static void udpClient() {
 
