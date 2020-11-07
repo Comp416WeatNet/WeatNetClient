@@ -29,13 +29,13 @@ public class Authentication {
                 resp = new DataType(question);
                 if (resp.getPhase() == DataType.AUTH_PHASE) {
                     if (resp.getType() == DataType.AUTH_FAIL) {
-//                        System.out.println(resp);
                         System.out.println(resp.getPayload());
                         out.close();
                         in.close();
                         stdIn.close();
                         break; // authentication failed
                     } else if (resp.getType() == DataType.AUTH_SUCCESS) {
+                        System.out.println("Succesfuly authenticated");
                         Token connectionToken = new Token(resp);
                         QueryingController.getQueryingController(stdIn, out, in, s).initQueryingMode();
                         break;
