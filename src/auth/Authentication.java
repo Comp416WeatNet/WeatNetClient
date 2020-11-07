@@ -29,10 +29,11 @@ public class Authentication {
                 resp = new DataType(question);
                 if (resp.getPhase() == DataType.AUTH_PHASE) {
                     if (resp.getType() == DataType.AUTH_FAIL) {
+//                        System.out.println(resp);
+                        System.out.println(resp.getPayload());
                         out.close();
                         in.close();
                         stdIn.close();
-                        s.close();
                         break; // authentication failed
                     } else if (resp.getType() == DataType.AUTH_SUCCESS) {
                         Token connectionToken = new Token(resp);

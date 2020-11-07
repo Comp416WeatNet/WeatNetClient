@@ -9,7 +9,7 @@ import controllers.AuthController;
 
 public class Client {
     public static final String DEFAULT_SERVER_HOST = "localhost";
-    public static final int DEFAULT_SERVER_PORT = 9999;
+    public static final int DEFAULT_SERVER_PORT = 7000;
 
     public Client(String serverHost, int serverPort){
         AuthController authController;
