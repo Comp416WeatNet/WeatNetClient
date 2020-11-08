@@ -27,7 +27,7 @@ public class DataType {
         this.type = type;
         int size = Integer.decode(data.substring(2,startIndex));
         this.size = size;
-        this.payload = data.substring(startIndex);
+        this.payload = data.substring(startIndex + 1);
     }
 
     public DataType(byte phase, byte type, String payload){
@@ -38,6 +38,7 @@ public class DataType {
         this.data = Byte.toString(this.phase);
         this.data += Byte.toString(this.type);
         this.data += Integer.toString(this.size);
+        this.data += "ø";
         this.data += this.payload;
     }
 
@@ -61,10 +62,12 @@ public class DataType {
         char[] chArray = data.toCharArray();
         int index = 0;
         for (char ch : chArray){
-            if(!Character.isDigit(ch))
+            if(String.valueOf(ch).equals("ø"))
                 break;
             index++;
         }
         return index;
     }
+
+
 }

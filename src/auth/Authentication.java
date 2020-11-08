@@ -19,9 +19,10 @@ public class Authentication {
         this.stdIn = stdIn;
         this.out = out;
         this.in = in;
+        this.s = s;
     }
     public void startAuthentication() throws IOException {
-            sendUsername(stdIn,out);
+            sendUsername();
             String question;
             String answer;
             DataType resp;
@@ -35,9 +36,11 @@ public class Authentication {
                         stdIn.close();
                         break; // authentication failed
                     } else if (resp.getType() == DataType.AUTH_SUCCESS) {
-                        System.out.println("Succesfuly authenticated");
+                        System.out.println("Successfully authenticated");
                         Token connectionToken = new Token(resp);
-                        QueryingController.getQueryingController(stdIn, out, in, s).initQueryingMode();
+                        // TODO: FIX THIS RETARDED SHIT
+                        int port = 7001;
+                        QueryingController.getQueryingController(stdIn, out, in, s, port).initQueryingMode();
                         break;
                     } else if (resp.getType() == DataType.AUTH_CHALLENGE) {
                         question = resp.getPayload();
@@ -48,7 +51,7 @@ public class Authentication {
                 }
             }
     }
-    private void sendUsername(BufferedReader stdIn, PrintWriter out) {
+    private void sendUsername() {
         System.out.println("Please enter your username:");
         String username;
         try {

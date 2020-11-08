@@ -5,7 +5,7 @@ public  class Token {
 
     public Token(DataType data) {
         String payload = data.getPayload();
-        this.token = payload.substring(0,6);
+        this.token = payload;
     }
 
 
