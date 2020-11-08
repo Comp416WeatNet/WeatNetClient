@@ -45,7 +45,7 @@ public class Querying {
                         cin.close();
                         stdIn.close();
                         cs.close();
-                        break; // authentication failed
+                        break;
                     } else if (data.getType() == DataType.QUERYING_REPORT) {
                         fileHash = data.getPayload();
                         String filename = getFiles(ds);
