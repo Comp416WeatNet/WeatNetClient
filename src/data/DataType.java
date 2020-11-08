@@ -11,26 +11,28 @@ public class DataType {
     public static final byte QUERYING_REPORT = 0x04;
     public static final byte QUERYING_REQUEST = 0x05;
     public static final byte QUERYING_TIMEOUT = 0x06;
+    public static final byte QUERYING_SUCCESS = 0x07;
+    public static final byte QUERYING_FAIL = 0x08;
 
     private String data;
-    private byte phase;
-    private byte type;
-    private int size;
-    private String payload;
+    private final byte phase;
+    private final byte type;
+    private final int size;
+    private final String payload;
 
     public DataType(String data) {
         int startIndex = findStartIndex(data);
         this.data = data;
-        Byte phase = Byte.decode(data.substring(0,1));
+        Byte phase = Byte.decode(data.substring(0, 1));
         this.phase = phase;
-        Byte type = Byte.decode(data.substring(1,2));
+        Byte type = Byte.decode(data.substring(1, 2));
         this.type = type;
-        int size = Integer.decode(data.substring(2,startIndex));
+        int size = Integer.decode(data.substring(2, startIndex));
         this.size = size;
         this.payload = data.substring(startIndex + 1);
     }
 
-    public DataType(byte phase, byte type, String payload){
+    public DataType(byte phase, byte type, String payload) {
         this.phase = phase;
         this.type = type;
         this.size = payload.length();
@@ -42,27 +44,27 @@ public class DataType {
         this.data += this.payload;
     }
 
-    public String getData(){
+    public String getData() {
         return this.data;
     }
 
-    public int getPhase(){
+    public int getPhase() {
         return this.phase;
     }
 
-    public int getType(){
+    public int getType() {
         return this.type;
     }
 
-    public String getPayload(){
+    public String getPayload() {
         return this.payload;
     }
 
     private int findStartIndex(String data) {
         char[] chArray = data.toCharArray();
         int index = 0;
-        for (char ch : chArray){
-            if(String.valueOf(ch).equals("ø"))
+        for (char ch : chArray) {
+            if (String.valueOf(ch).equals("ø"))
                 break;
             index++;
         }
