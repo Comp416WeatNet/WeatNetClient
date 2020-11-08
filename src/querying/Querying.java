@@ -117,7 +117,7 @@ public class Querying {
     }
 
     public void sendCityName() {
-        System.out.println("You have now entered the querying phase.\nPlease enter a query text:");
+        System.out.println("You have now entered the querying phase.\nPlease enter a city name and a number:");
         String cityName;
         try {
             if ((cityName = stdIn.readLine()) != null) {

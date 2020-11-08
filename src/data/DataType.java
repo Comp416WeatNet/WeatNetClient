@@ -55,6 +55,9 @@ public class DataType {
     public int getType() {
         return this.type;
     }
+    public int getSize() {
+        return this.size;
+    }
 
     public String getPayload() {
         return this.payload;
