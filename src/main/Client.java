@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
+
 import controllers.AuthController;
 
 public class Client {
@@ -13,6 +15,7 @@ public class Client {
 
     public Client(String serverHost, int serverPort){
         AuthController authController;
+
         try (
                 Socket s = new Socket ( serverHost, serverPort );
                 PrintWriter out =
@@ -24,6 +27,7 @@ public class Client {
                         new BufferedReader (
                                 new InputStreamReader ( System.in ) )
         ) {
+//            s.setSoTimeout(10*1000);
             authController = AuthController.getAuthController(stdIn,out,in,s);
             authController.startAuthentication();
         } catch (IOException e){
